@@ -1,1 +1,9 @@
-<p>reserve works!</p>
+<form [formGroup]="reservationForm">
+
+    <mat-form-field>
+      <mat-label>Choisir une date</mat-label>
+      <input matInput [matDatepicker]="picker" placeholder="choisir une date" formControlName="date">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</form>
