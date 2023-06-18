@@ -1,9 +1,44 @@
-<form [formGroup]="reservationForm">
-
+<div *ngIf="!isSchedule">
+  <form [formGroup]="reservationForm" (submit)="saveReservation()">
+      <mat-form-field>
+        <mat-label>Choisir une date</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="choisir une date" formControlName="date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="year" [startAt]="date"></mat-datepicker>
+      </mat-form-field><br>
+      <mat-form-field>
+        <mat-select placeholder="heure" formControlName="time" required>
+          <mat-option *ngFor="let to of timeOptions" [value]="to">
+            {{ to }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     <mat-form-field>
-      <mat-label>Choisir une date</mat-label>
-      <input matInput [matDatepicker]="picker" placeholder="choisir une date" formControlName="date">
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-select placeholder="combien de personnes" formControlName="time" required>
+        <mat-option *ngFor="let po of peopleOptions" [value]="po">
+          {{ po }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+    <button mat-button type="submit">confirmer l'horaire</button>
+  </form>
+</div>
+
+<div *ngIf="isSchedule">
+<form #f="ngForm" (submit)="finalizeReservation(f.value)">
+  <mat-form-field>
+    <input matInput type="text" name="firstname" [(ngModel)]="client.firstname" placeholder="prenom">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" name="lastname" [(ngModel)]="client.lastname" placeholder="nom">
+  </mat-form-field>
+  <mat-form-field>
+
+    <input matInput type="text" name="email" [(ngModel)]="client.email" placeholder="email">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" name="phone" [(ngModel)]="client.phone" placeholder="phone">
+  </mat-form-field>
+  <button mat-button type="submit">reserver</button>
 </form>
+</div>

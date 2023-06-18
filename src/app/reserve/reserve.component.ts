@@ -9,9 +9,17 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class ReserveComponent implements  OnInit{
 
   reservationForm!:FormGroup;
+
   date=new Date();
   timeOptions=["12:00","12:30","13:00","13:30","19:00","19:30","20:00","20:30"];
   peopleOptions=[1,2,3,4,5,6,7,8,9];
+  client= {
+    firstname:'',
+    lastname:'',
+    email:'',
+    phone:''
+  };
+  isSchedule=false;
 
   constructor(private fb:FormBuilder) {
 
@@ -27,5 +35,17 @@ export class ReserveComponent implements  OnInit{
       time:"",
       people:1
     })
+  }
+
+  finalizeReservation(value: any) {
+    console.log(value);
+
+  }
+
+  saveReservation() {
+    if(this.reservationForm.valid){
+      console.log(this.reservationForm);
+      this.isSchedule=true;
+    }
   }
 }
